@@ -116,15 +116,6 @@ bash dist_test.sh configs/val/grounding_dino_swin-t_coco-o.py tiny.pth 1
 bash dist_test.sh configs/val/grounding_dino_swin-t_refexp.py tiny.pth 1
 ```
 
-### 3. 独立评估脚本
-```bash
-# LVIS 分数校准与独立评估
-python eval_lvis_independent.py
-
-# 快速打印 LVIS 指标
-python eval_lvis.py
-```
-
 
 
 ---
