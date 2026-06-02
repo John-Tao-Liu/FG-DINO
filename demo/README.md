@@ -6,88 +6,6 @@
 ![License](https://img.shields.io/badge/License-Apache%202.0-yellow.svg)
 ![Benchmark](https://img.shields.io/badge/Benchmark-LVIS%20|%20COCO--O%20|%20RefCOCO-red.svg)
 
-
-
----
-
-## 📢 项目简介
-
-FG-DINO 是一款**面向细粒度开放场景的目标检测框架**，以 Grounding DINO 为基线，围绕**视觉-文本细粒度跨模态对齐**构建全链路优化方案，解决传统开放词汇检测的四大痛点：
-
-1. 训练数据标注粗粒度、异构标签割裂
-2. 图文语义错位与伪标签噪声严重
-3. 视觉底层特征与文本高层语义空间错位
-4. 固定 Prompt 导致训练-推论语义断层
-
-框架创新覆盖**数据构建、模型架构、训练推理**全流程，在 LVIS、OV-COCO、COCO-O、RefCOCO 等基准数据集上达到领先性能。
-
----
-
-## 🧱 实验环境
-
-### 环境配置（一键部署）
-
-```bash
-# 1. 创建虚拟环境
-conda deactivate
-conda create -n mmdet_env python=3.10 -y
-conda activate mmdet_env
-
-# 2. 安装 PyTorch
-pip install torch==2.2.1+cu121 torchvision==0.17.1+cu121 torchaudio==2.2.1+cu121 --index-url https://download.pytorch.org/whl/cu121
-
-# 3. 安装核心依赖
-pip install numpy==1.22.2 transformers==4.37.2 scipy
-pip install timm deepspeed pycocotools lvis jsonlines fairscale nltk peft wandb
-pip install terminaltables shapely
-
-# 4. 安装 MM 系列库
-pip install -U openmim
-mim install mmcv==2.2.0
-mim install mmengine==0.10.5
-```
-
-### 环境切换
-
-```bash
-# 切回 base
-conda deactivate
-# 切回项目环境
-conda activate mmdet_env
-```
-
----
-
-## 📂 数据准备
-
-### 数据集目录结构
-
-```
-autodl-fs/
-└── demo/
-    ├── FG-DINO/                # 项目代码
-    ├── huggingface/            # 预训练模型
-    │   ├── bert-base-uncased
-    │   ├── siglip-so400m-patch14-384
-    │   ├── qwen2.5-vl
-    │   └── mm_grounding_dino/
-    └── grounding_data/         # 数据集根目录
-        ├── coco/               # COCO2017 + LVIS 标注
-        ├── v3det/              # V3Det 细粒度数据集
-        ├── flickr30k_entities/ # GoldG 数据源
-        ├── gqa/
-        ├── llava_cap/          # LCS-558k 数据集
-        ├── fg_cap/             # 自建 FG-Cap-1.1M 数据集
-        └── ood_coco/           # COCO-O 域外数据集
-```
-
-# FG-DINO: Open-Vocabulary Object Detection with Vision-Text Fine-Grained Alignment
-
-![PyTorch](https://img.shields.io/badge/PyTorch-2.2.1+-blue.svg)
-![Python](https://img.shields.io/badge/Python-3.10-green.svg)
-![License](https://img.shields.io/badge/License-Apache%202.0-yellow.svg)
-![Benchmark](https://img.shields.io/badge/Benchmark-LVIS%20|%20COCO--O%20|%20RefCOCO-red.svg)
-
 **北京理工大学 计算机学院 硕士毕业设计**
 
 论文题目：基于视觉-文本细粒度对齐的开放词汇目标检测研究
@@ -163,16 +81,8 @@ autodl-fs/
         ├── flickr30k_entities/ # GoldG 数据源
         ├── gqa/
         ├── llava_cap/          # LCS-558k 数据集
-        ├── fg_cap/             # 自建 FG-Cap-1.1M 数据集
         └── ood_coco/           # COCO-O 域外数据集
 ```
-
-### 自建数据集：FG-Cap-1.1M
-- 整合：COCO + V3Det + GoldG + LCS-558k
-- 规模：1.1M 样本
-- 格式：六元组 `(I, Tg, B, Tc, Tr, W)`
-- 标注：图像级+区域级双粒度细粒度语义
-- 质控：多阶段噪声过滤，动态权重校准
 
 ---
 
@@ -267,43 +177,5 @@ python image_demo.py images/demo.jpeg \
 | Grounding DINO | 41.0 | 33.4 | 36.7 | 48.8 |
 | FG-DINO-Swin-T | **45.8** | **39.9** | **40.6** | **51.4** |
 
-### 2. COCO-O 域外泛化
-
-| 域类型 | AP | AP50 | AP75 |
-|--------|----|------|------|
-| 手绘 | 0.312 | 0.360 | 0.320 |
-| 卡通 | 0.385 | 0.477 | 0.413 |
-| 绘画 | 0.436 | 0.541 | 0.463 |
-| 素描 | 0.335 | 0.397 | 0.351 |
-| 纹身 | 0.283 | 0.316 | 0.291 |
-| 天气 | 0.457 | 0.592 | 0.477 |
-
-### 3. RefCOCO 指代理解
-
-| 数据集 | Precision@1 |
-|--------|-------------|
-| RefCOCO val | 70.8% |
-| RefCOCO testA | 75.7% |
-| RefCOCO testB | 68.0% |
-| RefCOCO+ val | 56.5% |
-| RefCOCOg val | 72.8% |
 
 ---
-
----
-
-## 📁 项目结构
-
-```
-FG-DINO/
-├── configs/                # 模型配置文件
-│   ├── val/                # 测试配置
-│   └── *.py                # 训练配置
-├── core/                   # 核心模型代码
-├── datasets/               # 数据集加载
-├── tools/                  # 训练/测试/评估脚本
-├── docs/                   # 文档
-├── LICENSE
-├── README.md
-└── requirements.txt
-```
