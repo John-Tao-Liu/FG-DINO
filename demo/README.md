@@ -6,11 +6,6 @@
 ![License](https://img.shields.io/badge/License-Apache%202.0-yellow.svg)
 ![Benchmark](https://img.shields.io/badge/Benchmark-LVIS%20|%20COCO--O%20|%20RefCOCO-red.svg)
 
-**北京理工大学 计算机学院 硕士毕业设计**
-
-论文题目：基于视觉-文本细粒度对齐的开放词汇目标检测研究
-
-作者：刘韬 | 指导教师：陈旵明 副教授
 
 ---
 
