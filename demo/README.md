@@ -163,16 +163,9 @@ autodl-fs/
         ├── flickr30k_entities/ # GoldG 数据源
         ├── gqa/
         ├── llava_cap/          # LCS-558k 数据集
-        ├── fg_cap/             # 自建 FG-Cap-1.1M 数据集
         └── ood_coco/           # COCO-O 域外数据集
 ```
 
-### 自建数据集：FG-Cap-1.1M
-- 整合：COCO + V3Det + GoldG + LCS-558k
-- 规模：1.1M 样本
-- 格式：六元组 `(I, Tg, B, Tc, Tr, W)`
-- 标注：图像级+区域级双粒度细粒度语义
-- 质控：多阶段噪声过滤，动态权重校准
 
 ---
 
